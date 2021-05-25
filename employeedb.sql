@@ -24,12 +24,26 @@ CREATE TABLE department(
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ("Jack", "Neuner", 1, 1);
+VALUES ("TJ", "Courey", 2, NULL);
+VALUES ("Nick", "Strong", 3, 1);
+VALUES ("Jon", "Gregory", 4, NULL);
+VALUES ("Peter", "Bishop", 5, 1);
+VALUES ("Ben", "Machock", 6, NULL);
+VALUES ("Sam", "Roberson", 2, NULL);
 
 INSERT INTO role (title, salary, department_id)
-VALUES ("Coder", 60000, 1);
+VALUES ("Sales Lead", 60000, 1);
+VALUES ("Salesperson", 60000, 1);
+VALUES ("Lead Engineer", 60000, 2);
+VALUES ("Software Engineer", 60000, 2);
+VALUES ("Account Manager", 60000, 3);
+VALUES ("Accountant", 60000, 3);
+VALUES ("Salesperson", 60000, 1);
 
-INSERT INTO department (name)
-VALUES ("Front-end Web Team");
+INSERT INTO department (name, department_id)
+VALUES ("Sales");
+VALUES ("Engineering");
+VALUES ("Accounting");
 
 SELECT * FROM employee;
 SELECT * FROM role;
