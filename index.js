@@ -132,36 +132,37 @@ updateEmployeeData = () => {
     ])
 
     .then((answer) => {
-      switch (answer.employeeTitle) {
+      console.log(answer);
+      switch (answer.newRole) {
         case "Sales Lead": {
-          addNewTitle(title, salary, 1);
-          addNewEmployee(firstName, lastName, 1);
-          return mainMenuQuestion();
+          addNewTitle(answer.newRole, answer.salary, 1);
+          addNewEmployee(answer.firstName, answer.lastName, 1);
+          break;
         }
         case "Salesperson": {
-          addNewTitle(title, salary, 1);
-          addNewEmployee(firstName, lastName, 2);
-          return mainMenuQuestion();
+          addNewTitle(answer.newRole, answer.salary, 1);
+          addNewEmployee(answer.firstName, answer.lastName, 2);
+          break;
         }
         case "Lead Engineer": {
-          addNewTitle(title, salary, 2);
-          addNewEmployee(firstName, lastName, 3);
-          return mainMenuQuestion();
+          addNewTitle(answer.newRole, answer.salary, 2);
+          addNewEmployee(answer.firstName, answer.lastName, 3);
+          break;
         }
         case "Software Engineer": {
-          addNewTitle(title, salary, 2);
-          addNewEmployee(firstName, lastName, 4);
-          return mainMenuQuestion();
+          addNewTitle(answer.newRole, answer.salary, 2);
+          addNewEmployee(answer.firstName, answer.lastName, 4);
+          break;
         }
         case "Account Manager": {
-          addNewTitle(title, salary, 3);
-          addNewEmployee(firstName, lastName, 5);
-          return mainMenuQuestion();
+          addNewTitle(answer.newRole, answer.salary, 3);
+          addNewEmployee(answer.firstName, answer.lastName, 5);
+          break;
         }
         case "Accountant": {
-          addNewTitle(title, salary, 3);
-          addNewEmployee(firstName, lastName, 6);
-          return mainMenuQuestion();
+          addNewTitle(answer.newRole, answer.salary, 3);
+          addNewEmployee(answer.firstName, answer.lastName, 6);
+          break;
         }
       }
       start();
@@ -170,7 +171,7 @@ updateEmployeeData = () => {
 
 const addNewEmployee = (firstName, lastName, roleId) => {
   connection.query(
-    `INSERT INTO employee_db.employee (firstName, lastName, newRole, NULL) VALUES ( ? , ? , ? , ? )`,
+    `INSERT INTO employee_db.employee (first_name, last_name, role_id, manager_id) VALUES ( ? , ? , ? , ? )`,
     [firstName, lastName, roleId, null],
     (err, res) => {
       if (err) throw err;
@@ -179,10 +180,10 @@ const addNewEmployee = (firstName, lastName, roleId) => {
   );
 };
 
-const addNewTitle = (title, salary, deptId) => {
+const addNewTitle = (title, salary) => {
   connection.query(
-    `INSERT INTO employee_db.role (title, salary, NULL) VALUES ( ? , ? , ? )`,
-    [title, salary, deptId],
+    `INSERT INTO employee_db.role (title, salary) VALUES ( ? , ? )`,
+    [title, salary],
     (err, res) => {
       if (err) throw err;
       connection.end;
@@ -190,6 +191,40 @@ const addNewTitle = (title, salary, deptId) => {
   );
 };
 
+createRoleData = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the new role?",
+        name: "newRole",
+      },
+      {
+        type: "input",
+        message: "Enter salary?",
+        name: "salary",
+      },
+    ])
+    .then((answer) => {
+      addNewTitle(answer.newRole, answer.salary);
+      start();
+    });
+};
+
+createDepartmentData = () => {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is the new department?",
+        name: "newDepartment",
+      },
+    ])
+    .then((answer) => {
+      addNewTitle(answer.newDepartment);
+      start();
+    });
+};
 //keep this at the bottom of code
 connection.connect((err) => {
   if (err) throw err;
