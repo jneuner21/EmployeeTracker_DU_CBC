@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/jneuner21/EmployeeTracker_DU_CBC#readme",
   "dependencies": {
+    "figlet": "^1.5.0",
     "inquirer": "^8.1.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5"
   }
 }
